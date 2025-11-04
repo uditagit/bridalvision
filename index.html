@@ -14,7 +14,7 @@
 
         @font-face {
             font-family: 'The Seasons';
-            src: url('data:font/woff2;base64,d09GMgABAAAAAAg4AA0AAAAAFKwAAAHeAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP0ZGVE0cGh4GYACCahEICoxEiwwLIAABNgIkAxgEIAWDGAcgG+INEVWUMki2H8nG5pF3oghJI6I1BxFVXpLmYfPQP3b/O7Mzqx+QRBS1KUPCEyGRxBJEIpFYpP/pf+75vgtzc3Nv7t+7P+/v3ft/7/6/d39ub25uyj8=') format('woff2');
+            src: local('Georgia'), local('Times New Roman');
             font-weight: normal;
             font-style: normal;
         }
@@ -37,17 +37,17 @@
         h1, h2, h3 {
             font-family: 'Georgia', serif;
             font-weight: 400;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
         }
 
         header {
-            background: linear-gradient(135deg, var(--white) 0%, var(--gray) 100%);
+            background: var(--white);
             padding: 20px 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             position: sticky;
@@ -77,8 +77,8 @@
 
         .hero {
             text-align: center;
-            padding: 100px 20px;
-            background: linear-gradient(180deg, var(--gray) 0%, var(--white) 100%);
+            padding: 120px 40px 80px;
+            background: var(--white);
             position: relative;
             overflow: hidden;
         }
@@ -90,7 +90,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
             animation: pulse 8s ease-in-out infinite;
         }
 
@@ -105,16 +105,17 @@
         }
 
         .hero h1 {
-            font-size: 56px;
-            margin-bottom: 20px;
+            font-size: 64px;
+            margin-bottom: 24px;
             color: var(--black);
             animation: fadeInUp 1s ease;
+            letter-spacing: 3px;
         }
 
         .hero .tagline {
             font-size: 24px;
             color: var(--gold);
-            margin-bottom: 40px;
+            margin-bottom: 0;
             font-weight: 300;
             animation: fadeInUp 1s ease 0.2s backwards;
         }
@@ -131,27 +132,41 @@
         }
 
         .section {
-            padding: 80px 20px;
+            padding: 80px 40px;
+        }
+
+        .section-white {
+            background: var(--white);
+        }
+
+        .section-black {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .section-gray {
+            background: var(--gray);
         }
 
         .section-title {
             text-align: center;
-            font-size: 42px;
-            margin-bottom: 20px;
-            color: var(--black);
+            font-size: 48px;
+            margin-bottom: 16px;
             position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
+            letter-spacing: 3px;
+        }
+
+        .section-black .section-title {
+            color: var(--white);
         }
 
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
+            width: 80px;
             height: 3px;
             background: var(--gold);
         }
@@ -164,14 +179,18 @@
             font-weight: 300;
         }
 
+        .section-black .section-subtitle {
+            color: #ccc;
+        }
+
         .app-description {
-            max-width: 800px;
-            margin: 0 auto 80px;
+            max-width: 900px;
+            margin: 0 auto 0;
             text-align: center;
-            font-size: 18px;
-            line-height: 1.8;
+            font-size: 20px;
+            line-height: 1.9;
             color: #444;
-            padding: 40px;
+            padding: 50px 60px;
             background: var(--gray);
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
@@ -185,18 +204,23 @@
 
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
-            margin-top: 60px;
+            margin-top: 0;
         }
 
         .benefit-card {
             background: var(--white);
-            padding: 40px;
+            padding: 45px 40px;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             border: 2px solid transparent;
+        }
+
+        .section-black .benefit-card {
+            background: #2a2a2a;
+            color: var(--white);
         }
 
         .benefit-card:hover {
@@ -205,33 +229,42 @@
             border-color: var(--gold-light);
         }
 
-        .benefit-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: var(--gold);
-        }
-
         .benefit-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: var(--black);
+            font-size: 26px;
+            margin-bottom: 16px;
+            color: var(--gold);
+            letter-spacing: 1px;
         }
 
         .benefit-card p {
             color: #666;
-            line-height: 1.7;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .section-black .benefit-card p {
+            color: #ccc;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 0;
         }
 
         .screenshots-section {
-            background: var(--gray);
-            padding: 80px 20px;
+            background: var(--white);
+            padding: 80px 40px;
         }
 
         .screenshots-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
             margin-top: 60px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .screenshot-placeholder {
@@ -260,20 +293,27 @@
 
         .cta-section {
             text-align: center;
-            padding: 100px 20px;
-            background: linear-gradient(135deg, var(--black) 0%, #2a2a2a 100%);
+            padding: 100px 40px;
+            background: var(--black);
             color: var(--white);
         }
 
         .cta-section h2 {
-            font-size: 42px;
-            margin-bottom: 30px;
+            font-size: 48px;
+            margin-bottom: 24px;
             color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 50px;
+            color: var(--gold-light);
         }
 
         .download-btn {
             display: inline-block;
-            padding: 18px 50px;
+            padding: 20px 60px;
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
             color: var(--black);
             text-decoration: none;
@@ -293,14 +333,15 @@
         footer {
             background: var(--black);
             color: var(--white);
-            padding: 40px 20px 20px;
+            padding: 50px 40px 30px;
             text-align: center;
+            border-top: 1px solid #333;
         }
 
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 40px;
             margin-bottom: 30px;
             flex-wrap: wrap;
         }
@@ -309,6 +350,7 @@
             color: var(--gold);
             text-decoration: none;
             transition: color 0.3s ease;
+            font-size: 16px;
         }
 
         .footer-links a:hover {
@@ -325,44 +367,48 @@
         .legal-page {
             max-width: 900px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 80px 40px;
         }
 
         .legal-page h1 {
-            font-size: 42px;
+            font-size: 48px;
             margin-bottom: 20px;
             color: var(--black);
+            letter-spacing: 2px;
         }
 
         .legal-page h2 {
-            font-size: 28px;
-            margin-top: 40px;
-            margin-bottom: 15px;
+            font-size: 32px;
+            margin-top: 50px;
+            margin-bottom: 20px;
             color: var(--black);
+            letter-spacing: 1px;
         }
 
         .legal-page p {
-            margin-bottom: 15px;
-            line-height: 1.8;
+            margin-bottom: 20px;
+            line-height: 1.9;
             color: #444;
+            font-size: 16px;
         }
 
         .legal-page ul {
             margin-left: 30px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .legal-page li {
-            margin-bottom: 10px;
-            line-height: 1.8;
+            margin-bottom: 12px;
+            line-height: 1.9;
         }
 
         .back-link {
             display: inline-block;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             color: var(--gold);
             text-decoration: none;
             transition: color 0.3s ease;
+            font-size: 16px;
         }
 
         .back-link:hover {
@@ -378,20 +424,61 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .hero {
+                padding: 80px 20px 60px;
+            }
+
             .hero h1 {
-                font-size: 36px;
+                font-size: 42px;
             }
 
             .hero .tagline {
-                font-size: 18px;
+                font-size: 20px;
+            }
+
+            .section {
+                padding: 60px 20px;
             }
 
             .section-title {
-                font-size: 32px;
+                font-size: 36px;
+            }
+
+            .app-description {
+                padding: 40px 30px;
+                font-size: 18px;
             }
 
             .benefits-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section {
+                padding: 80px 20px;
+            }
+
+            .cta-section h2 {
+                font-size: 36px;
+            }
+
+            .legal-page {
+                padding: 60px 20px;
+            }
+
+            .legal-page h1 {
+                font-size: 36px;
+            }
+
+            .legal-page h2 {
+                font-size: 26px;
             }
         }
     </style>
@@ -411,28 +498,33 @@
             </div>
         </section>
 
-        <section class="section">
+        <div class="section-divider"></div>
+
+        <section class="section section-white">
             <div class="container">
                 <div class="app-description">
                     <p><strong>BridalVision</strong> is an innovative AI-powered platform designed to transform the way you envision dress alterations. Whether you're a boutique professional seeking to enhance client consultations or a bride exploring possibilities for your perfect gown, BridalVision brings your ideas to life with stunning visual clarity. Experience the future of bridal customization with intelligent technology that understands your vision.</p>
                 </div>
+            </div>
+        </section>
 
+        <div class="section-divider"></div>
+
+        <section class="section section-black">
+            <div class="container">
                 <h2 class="section-title">For Boutiques</h2>
                 <p class="section-subtitle">Elevate your client experience with cutting-edge visualization</p>
                 
                 <div class="benefits-grid">
                     <div class="benefit-card">
-                        <div class="benefit-icon">✨</div>
                         <h3>Enhanced Consultations</h3>
                         <p>Transform client meetings with instant visual representations that bring ideas to life, creating memorable experiences that set your boutique apart.</p>
                     </div>
                     <div class="benefit-card">
-                        <div class="benefit-icon">⏱️</div>
                         <h3>Streamlined Process</h3>
                         <p>Reduce consultation time while increasing client confidence, allowing you to serve more clients with greater efficiency and satisfaction.</p>
                     </div>
                     <div class="benefit-card">
-                        <div class="benefit-icon">💎</div>
                         <h3>Increased Satisfaction</h3>
                         <p>Help clients visualize their dream dress before committing, leading to happier brides and stronger business relationships.</p>
                     </div>
@@ -440,30 +532,31 @@
             </div>
         </section>
 
-        <section class="section" style="background: var(--gray);">
+        <div class="section-divider"></div>
+
+        <section class="section section-white">
             <div class="container">
                 <h2 class="section-title">For Brides</h2>
                 <p class="section-subtitle">Your perfect dress, visualized before alterations</p>
                 
                 <div class="benefits-grid">
                     <div class="benefit-card">
-                        <div class="benefit-icon">👗</div>
                         <h3>Confident Decisions</h3>
                         <p>See your alterations come to life before making any commitments, ensuring every choice reflects your unique vision with clarity and confidence.</p>
                     </div>
                     <div class="benefit-card">
-                        <div class="benefit-icon">🎨</div>
                         <h3>Explore Possibilities</h3>
                         <p>Save and compare various alteration ideas to discover the perfect combination that makes your dress truly yours.</p>
                     </div>
                     <div class="benefit-card">
-                        <div class="benefit-icon">🤝</div>
                         <h3>Seamless Collaboration</h3>
                         <p>Work effortlessly with your boutique to refine every detail, ensuring your vision is perfectly communicated and beautifully realized.</p>
                     </div>
                 </div>
             </div>
         </section>
+
+        <div class="section-divider"></div>
 
         <section class="screenshots-section">
             <div class="container">
@@ -490,10 +583,12 @@
             </div>
         </section>
 
+        <div class="section-divider"></div>
+
         <section class="cta-section">
             <div class="container">
                 <h2>Ready to Visualize Your Dream?</h2>
-                <p style="font-size: 18px; margin-bottom: 40px; color: var(--gold-light);">Download BridalVision today and start your journey</p>
+                <p>Download BridalVision today and start your journey</p>
                 <a href="#" class="download-btn">Download Now</a>
             </div>
         </section>
@@ -515,7 +610,7 @@
     <div id="privacy-page" class="page">
         <header>
             <nav class="container">
-                <div class="logo">Bridal<span>Vision</span></div>
+                <div class="logo">Logo Placeholder</div>
             </nav>
         </header>
 
@@ -605,7 +700,7 @@
     <div id="terms-page" class="page">
         <header>
             <nav class="container">
-                <div class="logo">Bridal<span>Vision</span></div>
+                <div class="logo">Logo Placeholder</div>
             </nav>
         </header>
 
