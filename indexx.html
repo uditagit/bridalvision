@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BridalVision - Visualize Your Dream Dress</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: 'The Seasons';
+            src: url('data:font/woff2;base64,d09GMgABAAAAAAg4AA0AAAAAFKwAAAHeAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP0ZGVE0cGh4GYACCahEICoxEiwwLIAABNgIkAxgEIAWDGAcgG+INEVWUMki2H8nG5pF3oghJI6I1BxFVXpLmYfPQP3b/O7Mzqx+QRBS1KUPCEyGRxBJEIpFYpP/pf+75vgtzc3Nv7t+7P+/v3ft/7/6/d39ub25uyj8=') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #E8D4A0;
+            --white: #FFFFFF;
+            --black: #1a1a1a;
+            --gray: #f8f8f8;
+        }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            color: var(--black);
+            line-height: 1.6;
+            background: var(--white);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Georgia', serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--white) 0%, var(--gray) 100%);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 200px;
+            height: 60px;
+            background: var(--gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            border: 2px dashed #ddd;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(180deg, var(--gray) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            color: var(--black);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero .tagline {
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 40px;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: var(--black);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        .app-description {
+            max-width: 800px;
+            margin: 0 auto 80px;
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #444;
+            padding: 40px;
+            background: var(--gray);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .app-description:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .benefit-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+            border-color: var(--gold-light);
+        }
+
+        .benefit-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .benefit-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--black);
+        }
+
+        .benefit-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .screenshots-section {
+            background: var(--gray);
+            padding: 80px 20px;
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .screenshot-placeholder {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-placeholder:hover {
+            transform: scale(1.05);
+        }
+
+        .screenshot-frame {
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 18px;
+            border: 3px solid var(--gold-light);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--black) 0%, #2a2a2a 100%);
+            color: var(--white);
+        }
+
+        .cta-section h2 {
+            font-size: 42px;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--black);
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
+        }
+
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .legal-page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .legal-page h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+
+        .legal-page h2 {
+            font-size: 28px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            color: var(--black);
+        }
+
+        .legal-page p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .legal-page ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .legal-page li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--gold-light);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .tagline {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="home-page" class="page active">
+        <header>
+            <nav class="container">
+                <div class="logo">Logo Placeholder</div>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>BridalVision</h1>
+                <p class="tagline">Visualize Your Dream Dress</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="app-description">
+                    <p><strong>BridalVision</strong> is an innovative AI-powered platform designed to transform the way you envision dress alterations. Whether you're a boutique professional seeking to enhance client consultations or a bride exploring possibilities for your perfect gown, BridalVision brings your ideas to life with stunning visual clarity. Experience the future of bridal customization with intelligent technology that understands your vision.</p>
+                </div>
+
+                <h2 class="section-title">For Boutiques</h2>
+                <p class="section-subtitle">Elevate your client experience with cutting-edge visualization</p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">✨</div>
+                        <h3>Enhanced Consultations</h3>
+                        <p>Transform client meetings with instant visual representations that bring ideas to life, creating memorable experiences that set your boutique apart.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">⏱️</div>
+                        <h3>Streamlined Process</h3>
+                        <p>Reduce consultation time while increasing client confidence, allowing you to serve more clients with greater efficiency and satisfaction.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">💎</div>
+                        <h3>Increased Satisfaction</h3>
+                        <p>Help clients visualize their dream dress before committing, leading to happier brides and stronger business relationships.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--gray);">
+            <div class="container">
+                <h2 class="section-title">For Brides</h2>
+                <p class="section-subtitle">Your perfect dress, visualized before alterations</p>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">👗</div>
+                        <h3>Confident Decisions</h3>
+                        <p>See your alterations come to life before making any commitments, ensuring every choice reflects your unique vision with clarity and confidence.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🎨</div>
+                        <h3>Explore Possibilities</h3>
+                        <p>Save and compare various alteration ideas to discover the perfect combination that makes your dress truly yours.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🤝</div>
+                        <h3>Seamless Collaboration</h3>
+                        <p>Work effortlessly with your boutique to refine every detail, ensuring your vision is perfectly communicated and beautifully realized.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="screenshots-section">
+            <div class="container">
+                <h2 class="section-title">See It In Action</h2>
+                <p class="section-subtitle">Experience the magic of AI-powered visualization</p>
+                
+                <div class="screenshots-grid">
+                    <div class="screenshot-placeholder">
+                        <div class="screenshot-frame">
+                            Screenshot 1
+                        </div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <div class="screenshot-frame">
+                            Screenshot 2
+                        </div>
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <div class="screenshot-frame">
+                            Screenshot 3
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Visualize Your Dream?</h2>
+                <p style="font-size: 18px; margin-bottom: 40px; color: var(--gold-light);">Download BridalVision today and start your journey</p>
+                <a href="#" class="download-btn">Download Now</a>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <div class="footer-links">
+                    <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a>
+                    <a href="#" onclick="showPage('terms'); return false;">Terms & Conditions</a>
+                    <a href="mailto:info@bridalvisionapp.com">Contact Us</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 BridalVision LLC. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="privacy-page" class="page">
+        <header>
+            <nav class="container">
+                <div class="logo">Bridal<span>Vision</span></div>
+            </nav>
+        </header>
+
+        <div class="legal-page">
+            <a href="#" onclick="showPage('home'); return false;" class="back-link">← Back to Home</a>
+            <h1>Privacy Policy</h1>
+            <p><strong>Effective Date:</strong> November 4, 2025</p>
+            <p><strong>Last Updated:</strong> November 4, 2025</p>
+
+            <h2>1. Introduction</h2>
+            <p>Welcome to BridalVision. BridalVision LLC ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application and services.</p>
+
+            <h2>2. Information We Collect</h2>
+            <p>We may collect the following types of information:</p>
+            <ul>
+                <li><strong>Personal Information:</strong> Name, email address, phone number, and payment information when you create an account or make purchases.</li>
+                <li><strong>Images:</strong> Photos of dresses that you upload to use our AI visualization features.</li>
+                <li><strong>Usage Data:</strong> Information about how you interact with our app, including features used, time spent, and preferences.</li>
+                <li><strong>Device Information:</strong> Device type, operating system, unique device identifiers, and mobile network information.</li>
+                <li><strong>Location Data:</strong> Approximate location based on IP address (we do not collect precise GPS location).</li>
+            </ul>
+
+            <h2>3. How We Use Your Information</h2>
+            <p>We use the collected information for the following purposes:</p>
+            <ul>
+                <li>To provide and maintain our AI-powered dress visualization services</li>
+                <li>To process your transactions and manage your account</li>
+                <li>To improve our app features and user experience</li>
+                <li>To communicate with you about updates, promotions, and customer support</li>
+                <li>To analyze usage patterns and optimize our services</li>
+                <li>To comply with legal obligations and protect our rights</li>
+            </ul>
+
+            <h2>4. How We Share Your Information</h2>
+            <p>We do not sell your personal information. We may share your information in the following circumstances:</p>
+            <ul>
+                <li><strong>Service Providers:</strong> Third-party companies that help us operate our app and provide services (e.g., cloud storage, payment processing, AI processing)</li>
+                <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets</li>
+                <li><strong>Legal Requirements:</strong> When required by law or to protect our rights and safety</li>
+                <li><strong>With Your Consent:</strong> When you explicitly authorize us to share information</li>
+            </ul>
+
+            <h2>5. Data Security</h2>
+            <p>We implement appropriate technical and organizational measures to protect your information. However, no method of transmission over the internet or electronic storage is completely secure, and we cannot guarantee absolute security.</p>
+
+            <h2>6. Your Rights and Choices</h2>
+            <p>You have the following rights regarding your information:</p>
+            <ul>
+                <li><strong>Access:</strong> Request access to the personal information we hold about you</li>
+                <li><strong>Correction:</strong> Request correction of inaccurate information</li>
+                <li><strong>Deletion:</strong> Request deletion of your personal information</li>
+                <li><strong>Opt-Out:</strong> Unsubscribe from marketing communications</li>
+                <li><strong>Data Portability:</strong> Request a copy of your data in a portable format</li>
+            </ul>
+
+            <h2>7. Children's Privacy</h2>
+            <p>Our services are not intended for users under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that we have collected information from a child under 13, we will take steps to delete such information.</p>
+
+            <h2>8. International Data Transfers</h2>
+            <p>Your information may be transferred to and processed in countries other than your country of residence. We ensure appropriate safeguards are in place to protect your information in accordance with this Privacy Policy.</p>
+
+            <h2>9. Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
+
+            <h2>10. Contact Us</h2>
+            <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+            <p>
+                <strong>BridalVision LLC</strong><br>
+                Email: info@bridalvisionapp.com
+            </p>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="footer-links">
+                    <a href="#" onclick="showPage('home'); return false;">Home</a>
+                    <a href="#" onclick="showPage('terms'); return false;">Terms & Conditions</a>
+                    <a href="mailto:info@bridalvisionapp.com">Contact Us</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 BridalVision LLC. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="terms-page" class="page">
+        <header>
+            <nav class="container">
+                <div class="logo">Bridal<span>Vision</span></div>
+            </nav>
+        </header>
+
+        <div class="legal-page">
+            <a href="#" onclick="showPage('home'); return false;" class="back-link">← Back to Home</a>
+            <h1>Terms & Conditions</h1>
+            <p><strong>Effective Date:</strong> November 4, 2025</p>
+            <p><strong>Last Updated:</strong> November 4, 2025</p>
+
+            <h2>1. Acceptance of Terms</h2>
+            <p>By accessing or using the BridalVision mobile application and services ("Services"), you agree to be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, do not use our Services.</p>
+
+            <h2>2. Description of Services</h2>
+            <p>BridalVision provides an AI-powered platform that allows users to visualize custom dress alterations. Our Services include image processing, visualization tools, and related features designed for both individual users and boutique professionals.</p>
+
+            <h2>3. User Accounts</h2>
+            <p>To use certain features of our Services, you must create an account. You agree to:</p>
+            <ul>
+                <li>Provide accurate, current, and complete information</li>
+                <li>Maintain the security of your account credentials</li>
+                <li>Notify us immediately of any unauthorized use of your account</li>
+                <li>Be responsible for all activities that occur under your account</li>
+            </ul>
+
+            <h2>4. User Content and Intellectual Property</h2>
+            <p><strong>Your Content:</strong> You retain ownership of any images or content you upload to our Services. By uploading content, you grant us a limited license to use, process, and display your content solely for the purpose of providing our Services.</p>
+            <p><strong>Our Content:</strong> All content, features, and functionality of our Services, including but not limited to text, graphics, logos, and software, are owned by BridalVision LLC and protected by intellectual property laws.</p>
+
+            <h2>5. Acceptable Use</h2>
+            <p>You agree not to:</p>
+            <ul>
+                <li>Use our Services for any illegal purpose or in violation of any laws</li>
+                <li>Upload content that infringes on intellectual property rights</li>
+                <li>Attempt to gain unauthorized access to our systems or networks</li>
+                <li>Interfere with or disrupt the Services or servers</li>
+                <li>Use automated systems to access the Services without permission</li>
+                <li>Impersonate any person or entity or misrepresent your affiliation</li>
+            </ul>
+
+            <h2>6. AI-Generated Visualizations</h2>
+            <p>Our AI-powered visualization features are provided for informational and planning purposes only. The visualizations are artistic representations and may not perfectly reflect the final result of actual dress alterations. BridalVision LLC is not responsible for any differences between visualizations and actual alterations performed by third parties.</p>
+
+            <h2>7. Payment and Subscriptions</h2>
+            <p>Certain features of our Services may require payment. By making a purchase, you agree to:</p>
+            <ul>
+                <li>Provide accurate payment information</li>
+                <li>Pay all fees and applicable taxes</li>
+                <li>Comply with our refund and cancellation policies</li>
+            </ul>
+            <p>Subscription fees are charged in advance and are non-refundable except as required by law.</p>
+
+            <h2>8. Disclaimers and Limitation of Liability</h2>
+            <p><strong>Disclaimers:</strong> Our Services are provided "as is" and "as available" without warranties of any kind, either express or implied. We do not guarantee that our Services will be uninterrupted, error-free, or secure.</p>
+            <p><strong>Limitation of Liability:</strong> To the maximum extent permitted by law, BridalVision LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of our Services.</p>
+
+            <h2>9. Indemnification</h2>
+            <p>You agree to indemnify and hold harmless BridalVision LLC and its officers, directors, employees, and agents from any claims, damages, losses, liabilities, and expenses arising out of your use of our Services or violation of these Terms.</p>
+
+            <h2>10. Termination</h2>
+            <p>We reserve the right to suspend or terminate your account and access to our Services at any time, with or without notice, for any reason, including violation of these Terms.</p>
+
+            <h2>11. Governing Law and Dispute Resolution</h2>
+            <p>These Terms shall be governed by and construed in accordance with the laws of the United States, without regard to conflict of law principles. Any disputes arising from these Terms or your use of our Services shall be resolved through binding arbitration.</p>
+
+            <h2>12. Changes to Terms</h2>
+            <p>We may modify these Terms at any time. We will notify you of material changes by posting the updated Terms on our app and updating the "Last Updated" date. Your continued use of our Services after changes constitutes acceptance of the modified Terms.</p>
+
+            <h2>13. Contact Information</h2>
+            <p>If you have any questions about these Terms, please contact us at:</p>
+            <p>
+                <strong>BridalVision LLC</strong><br>
+                Email: info@bridalvisionapp.com
+            </p>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="footer-links">
+                    <a href="#" onclick="showPage('home'); return false;">Home</a>
+                    <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a>
+                    <a href="mailto:info@bridalvisionapp.com">Contact Us</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 BridalVision LLC. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+    </script>
+</body>
+</html>
