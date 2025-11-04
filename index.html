@@ -46,32 +46,17 @@
             padding: 0 40px;
         }
 
-        header {
-            background: var(--white);
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            width: 200px;
-            height: 60px;
+        .logo-placeholder {
+            width: 300px;
+            height: 120px;
+            margin: 0 auto 40px;
             background: var(--gray);
-            border-radius: 8px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #999;
-            font-size: 14px;
+            font-size: 16px;
             border: 2px dashed #ddd;
         }
 
@@ -110,6 +95,7 @@
             color: var(--black);
             animation: fadeInUp 1s ease;
             letter-spacing: 3px;
+            display: none;
         }
 
         .hero .tagline {
@@ -485,15 +471,9 @@
 </head>
 <body>
     <div id="home-page" class="page active">
-        <header>
-            <nav class="container">
-                <div class="logo">Logo Placeholder</div>
-            </nav>
-        </header>
-
         <section class="hero">
             <div class="hero-content">
-                <h1>BridalVision</h1>
+                <div class="logo-placeholder">Logo Image Here</div>
                 <p class="tagline">Visualize Your Dream Dress</p>
             </div>
         </section>
@@ -608,12 +588,6 @@
     </div>
 
     <div id="privacy-page" class="page">
-        <header>
-            <nav class="container">
-                <div class="logo">Logo Placeholder</div>
-            </nav>
-        </header>
-
         <div class="legal-page">
             <a href="#" onclick="showPage('home'); return false;" class="back-link">← Back to Home</a>
             <h1>Privacy Policy</h1>
@@ -698,12 +672,6 @@
     </div>
 
     <div id="terms-page" class="page">
-        <header>
-            <nav class="container">
-                <div class="logo">Logo Placeholder</div>
-            </nav>
-        </header>
-
         <div class="legal-page">
             <a href="#" onclick="showPage('home'); return false;" class="back-link">← Back to Home</a>
             <h1>Terms & Conditions</h1>
