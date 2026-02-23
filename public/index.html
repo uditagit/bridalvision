@@ -638,8 +638,8 @@
         <footer>
             <div class="container">
                 <div class="footer-links">
-                    <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a>
-                    <a href="#" onclick="showPage('terms'); return false;">Terms & Conditions</a>
+                    <a href="/privacy" onclick="showPage('privacy'); return false;">Privacy Policy</a>
+                    <a href="/terms" onclick="showPage('terms'); return false;">Terms & Conditions</a>
                     <a href="mailto:info@bridalvisionapp.com">Contact Us</a>
                 </div>
                 <div class="footer-bottom">
@@ -651,7 +651,7 @@
 
     <div id="privacy-page" class="page">
         <div class="legal-page">
-            <a href="#" onclick="showPage('home'); return false;" class="back-link">← Back to Home</a>
+            <a href="/" onclick="showPage('home'); return false;" class="back-link">← Back to Home</a>
             <h1>Privacy Policy</h1>
             <p><strong>Effective Date:</strong> November 4, 2025</p>
             <p><strong>Last Updated:</strong> November 4, 2025</p>
@@ -739,8 +739,8 @@
         <footer>
             <div class="container">
                 <div class="footer-links">
-                    <a href="#" onclick="showPage('home'); return false;">Home</a>
-                    <a href="#" onclick="showPage('terms'); return false;">Terms & Conditions</a>
+                    <a href="/" onclick="showPage('home'); return false;">Home</a>
+                    <a href="/terms" onclick="showPage('terms'); return false;">Terms & Conditions</a>
                     <a href="mailto:info@bridalvisionapp.com">Contact Us</a>
                 </div>
                 <div class="footer-bottom">
@@ -752,7 +752,7 @@
 
     <div id="terms-page" class="page">
         <div class="legal-page">
-            <a href="#" onclick="showPage('home'); return false;" class="back-link">← Back to Home</a>
+            <a href="/" onclick="showPage('home'); return false;" class="back-link">← Back to Home</a>
             <h1>Terms & Conditions</h1>
             <p><strong>Effective Date:</strong> November 4, 2025</p>
             <p><strong>Last Updated:</strong> November 4, 2025</p>
@@ -848,8 +848,8 @@
         <footer>
             <div class="container">
                 <div class="footer-links">
-                    <a href="#" onclick="showPage('home'); return false;">Home</a>
-                    <a href="#" onclick="showPage('privacy'); return false;">Privacy Policy</a>
+                    <a href="/" onclick="showPage('home'); return false;">Home</a>
+                    <a href="/privacy" onclick="showPage('privacy'); return false;">Privacy Policy</a>
                     <a href="mailto:info@bridalvisionapp.com">Contact Us</a>
                 </div>
                 <div class="footer-bottom">
@@ -860,16 +860,35 @@
     </div>
 
     <script>
-        function showPage(pageId) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
+        function pathToPage() {
+            var p = (window.location.pathname || '/').replace(/\/$/, '') || '/';
+            if (p === '/privacy') return 'privacy';
+            if (p === '/terms') return 'terms';
+            return 'home';
+        }
 
-            const targetPage = document.getElementById(pageId + '-page');
+        function showPage(pageId, push) {
+            var pages = document.querySelectorAll('.page');
+            pages.forEach(function (page) { page.classList.remove('active'); });
+            var targetPage = document.getElementById(pageId + '-page');
             if (targetPage) {
                 targetPage.classList.add('active');
                 window.scrollTo(0, 0);
             }
+            if (push !== false) {
+                var path = pageId === 'home' ? '/' : '/' + pageId;
+                history.pushState({ page: pageId }, '', path);
+            }
         }
+
+        window.addEventListener('DOMContentLoaded', function () {
+            showPage(pathToPage(), false);
+        });
+
+        window.addEventListener('popstate', function (e) {
+            var pageId = (e.state && e.state.page) ? e.state.page : pathToPage();
+            showPage(pageId, false);
+        });
     </script>
 </body>
 
