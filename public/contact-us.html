@@ -52,6 +52,7 @@
             color: var(--black);
         }
         .contact-form input,
+        .contact-form select,
         .contact-form textarea {
             width: 100%;
             padding: 14px 18px;
@@ -59,14 +60,18 @@
             border-radius: 10px;
             font-family: inherit;
             font-size: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             transition: border-color 0.2s;
         }
+        .contact-form select { margin-bottom: 20px; cursor: pointer; }
         .contact-form input:focus,
+        .contact-form select:focus,
         .contact-form textarea:focus {
             outline: none;
             border-color: var(--gold);
         }
+        .phone-row { display: grid; grid-template-columns: 120px 1fr; gap: 16px; }
+        @media (max-width: 480px) { .phone-row { grid-template-columns: 1fr; } }
         .contact-form textarea { min-height: 160px; resize: vertical; }
         .contact-form .error { color: #c00; font-size: 14px; margin-top: -14px; margin-bottom: 12px; }
         .contact-form .field-error { border-color: #c00; }
@@ -124,15 +129,39 @@
             <p class="subtitle form-subtitle">We're here to help. Send us a message and we'll get back to you soon.</p>
             <div id="success-message">Thank you! Your message has been sent successfully. We'll get back to you shortly.</div>
             <form id="contact-form" class="contact-form" data-api-base="">
-                <label for="name">Name *</label>
-                <input type="text" id="name" name="name" required autocomplete="name">
+                <label for="name">Boutique/Shop name *</label>
+                <input type="text" id="name" name="name" required autocomplete="name" placeholder="e.g. Rose & Co. Boutique">
                 <div id="name-error" class="error" aria-live="polite"></div>
+            
                 <label for="email">Email *</label>
-                <input type="email" id="email" name="email" required autocomplete="email">
+                <input type="text" id="email" name="email" required autocomplete="email" inputmode="email" placeholder="e.g. hello@yourboutique.com">
                 <div id="email-error" class="error" aria-live="polite"></div>
+            
+                <label>Contact Number *</label>
+                <div class="phone-row">
+                    <div>
+                        <input type="text" id="phoneCountryCode" name="phoneCountryCode" placeholder="+1" maxlength="5" autocomplete="tel-country-code">
+                        <div id="phoneCountryCode-error" class="error" aria-live="polite"></div>
+                    </div>
+                    <div>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="e.g. 555 123 4567" autocomplete="tel-national">
+                        <div id="phoneNumber-error" class="error" aria-live="polite"></div>
+                    </div>
+                </div>
+            
+                <label for="subscriptionType">Which subscription plan are you interested in? *</label>
+                <select id="subscriptionType" name="subscriptionType" required>
+                    <option value="">Select a plan…</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="quarterly">Quarterly</option>
+                    <option value="annual">Annually</option>
+                </select>
+                <div id="subscriptionType-error" class="error" aria-live="polite"></div>
+            
                 <label for="message">Message *</label>
-                <textarea id="message" name="message" required></textarea>
+                <textarea id="message" name="message" required placeholder="Please tell us more about your purpose of using BridalVision"></textarea>
                 <div id="message-error" class="error" aria-live="polite"></div>
+            
                 <button type="submit" class="submit-btn" id="submit-btn">Send Message</button>
             </form>
             </div>
@@ -156,9 +185,15 @@
             var nameInput = document.getElementById('name');
             var emailInput = document.getElementById('email');
             var messageInput = document.getElementById('message');
+            var phoneCountryCodeInput = document.getElementById('phoneCountryCode');
+            var phoneNumberInput = document.getElementById('phoneNumber');
+            var subscriptionTypeInput = document.getElementById('subscriptionType');
             var nameError = document.getElementById('name-error');
             var emailError = document.getElementById('email-error');
             var messageError = document.getElementById('message-error');
+            var phoneCountryCodeError = document.getElementById('phoneCountryCode-error');
+            var phoneNumberError = document.getElementById('phoneNumber-error');
+            var subscriptionTypeError = document.getElementById('subscriptionType-error');
 
             function getApiBase() {
                 return "https://plexiform-armor-474519-f7.uc.r.appspot.com"
@@ -171,16 +206,29 @@
                 nameError.textContent = '';
                 emailError.textContent = '';
                 messageError.textContent = '';
+                phoneCountryCodeError.textContent = '';
+                phoneNumberError.textContent = '';
+                subscriptionTypeError.textContent = '';
                 nameInput.classList.remove('field-error');
                 emailInput.classList.remove('field-error');
                 messageInput.classList.remove('field-error');
+                phoneCountryCodeInput.classList.remove('field-error');
+                phoneNumberInput.classList.remove('field-error');
+                subscriptionTypeInput.classList.remove('field-error');
             }
 
             function setError(field, msg) {
                 if (field === 'name') { nameError.textContent = msg; nameInput.classList.add('field-error'); }
                 if (field === 'email') { emailError.textContent = msg; emailInput.classList.add('field-error'); }
                 if (field === 'message') { messageError.textContent = msg; messageInput.classList.add('field-error'); }
+                if (field === 'phoneCountryCode') { phoneCountryCodeError.textContent = msg; phoneCountryCodeInput.classList.add('field-error'); }
+                if (field === 'phoneNumber') { phoneNumberError.textContent = msg; phoneNumberInput.classList.add('field-error'); }
+                if (field === 'subscriptionType') { subscriptionTypeError.textContent = msg; subscriptionTypeInput.classList.add('field-error'); }
             }
+
+            var countryCodeRegex = /^\+[1-9]\d{0,3}$/;
+            var phoneNumberRegex = /^\d{6,15}$/;
+            var subscriptionTypes = ['monthly', 'quarterly', 'annual'];
 
             function validate() {
                 clearErrors();
@@ -188,9 +236,18 @@
                 var name = (nameInput.value || '').trim();
                 var email = (emailInput.value || '').trim();
                 var message = (messageInput.value || '').trim();
+                var cc = (phoneCountryCodeInput.value || '').trim().replace(/\s/g, '');
+                var pn = (phoneNumberInput.value || '').trim().replace(/\s/g, '');
+                var sub = (subscriptionTypeInput.value || '').trim();
                 if (!name) { setError('name', 'Name is required'); valid = false; }
                 if (!email) { setError('email', 'Email is required'); valid = false; }
                 else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('email', 'Please enter a valid email'); valid = false; }
+                if (!cc) { setError('phoneCountryCode', 'Country code is required'); valid = false; }
+                else if (!countryCodeRegex.test(cc)) { setError('phoneCountryCode', 'Use format +1, +91, etc.'); valid = false; }
+                if (!pn) { setError('phoneNumber', 'Phone number is required'); valid = false; }
+                else if (!phoneNumberRegex.test(pn)) { setError('phoneNumber', '6–15 digits only'); valid = false; }
+                if (!sub) { setError('subscriptionType', 'Please select a plan'); valid = false; }
+                else if (subscriptionTypes.indexOf(sub) === -1) { setError('subscriptionType', 'Please select a valid plan'); valid = false; }
                 if (!message) { setError('message', 'Message is required'); valid = false; }
                 return valid;
             }
@@ -212,7 +269,10 @@
                     body: JSON.stringify({
                         name: nameInput.value.trim(),
                         email: emailInput.value.trim(),
-                        message: messageInput.value.trim()
+                        message: messageInput.value.trim(),
+                        phoneCountryCode: (phoneCountryCodeInput.value || '').trim().replace(/\s/g, ''),
+                        phoneNumber: (phoneNumberInput.value || '').trim().replace(/\s/g, ''),
+                        subscriptionType: (subscriptionTypeInput.value || '').trim()
                     })
                 })
                     .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
