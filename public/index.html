@@ -355,6 +355,19 @@
             box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
         }
 
+        .store-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 60px;
+        }
+        .store-buttons .download-btn { margin: 0; }
+        @media (max-width: 480px) {
+            .store-buttons { flex-direction: column; gap: 16px; }
+        }
+
         footer {
             background: var(--black);
             color: var(--white);
@@ -621,9 +634,10 @@
                     </div>
 
                 </div>
-
-                <div style="text-align: center; margin-top: 60px;">
-                    <a href="#" class="download-btn">Download Now</a>
+                <h2 class="section-title" style="margin-top: 2rem;">Download Now</h2>
+                <div class="store-buttons">
+                    <a href="https://apps.apple.com/us/app/bridalvision/id6756514522" class="download-btn" target="_blank" rel="noopener noreferrer">App Store</a>
+                    <a href="https://play.google.com/store/apps/details?id=bridalvision.app.bridalvisionapp" class="download-btn" target="_blank" rel="noopener noreferrer">Google Play</a>
                 </div>
             </div>
         </section>
