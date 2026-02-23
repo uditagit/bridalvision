@@ -100,6 +100,8 @@
             margin-bottom: 24px;
         }
         #success-message.show { display: block; }
+        .contact-form-wrapper.hide-form .contact-form { display: none; }
+        .contact-form-wrapper.hide-form .form-subtitle { display: none; }
         footer {
             background: var(--black);
             color: var(--white);
@@ -118,7 +120,8 @@
         <div class="container">
             <a href="/" class="back-link">← Back to Home</a>
             <h1>Contact Us</h1>
-            <p class="subtitle">We're here to help. Send us a message and we'll get back to you soon.</p>
+            <div class="contact-form-wrapper" id="contact-form-wrapper">
+            <p class="subtitle form-subtitle">We're here to help. Send us a message and we'll get back to you soon.</p>
             <div id="success-message">Thank you! Your message has been sent successfully. We'll get back to you shortly.</div>
             <form id="contact-form" class="contact-form" data-api-base="">
                 <label for="name">Name *</label>
@@ -132,6 +135,7 @@
                 <div id="message-error" class="error" aria-live="polite"></div>
                 <button type="submit" class="submit-btn" id="submit-btn">Send Message</button>
             </form>
+            </div>
         </div>
     </div>
     <footer>
@@ -214,6 +218,7 @@
                     .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
                     .then(function (result) {
                         if (result.ok && result.data.success) {
+                            document.getElementById('contact-form-wrapper').classList.add('hide-form');
                             successEl.classList.add('show');
                             form.reset();
                             clearErrors();
